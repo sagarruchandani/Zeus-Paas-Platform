@@ -17,7 +17,7 @@ var dir = require("node-dir");
 // var readDirectories = require ("./listFilesAndDirectories.js")
 
 mongoose.connect(
-		'mongodb://zeus_admin:zeus_admin@ds063769.mongolab.com:63769/zeus_1',
+		'mongodb://username:password@dbname.mongolab.com:dbport/collection',
 		function(error) {
 			if (error) {
 				console.log("Unable to connect to database " + error);
@@ -271,8 +271,8 @@ router.post('/:username/createNewApp',function(req, res){
 	var appName = req.body.appName;
 	// Arguments needs to be changed according to AWS dns settings
 	var args = {
-		zoneId : "Z2WHLIJ6XNK5AG",
-		name : domain_name + '.utsavpopli.me',
+		zoneId : "zoneID from Route53",
+		name : domain_name + '.ruchandani.me',
 		type : "A",
 		ttl : 700,
 		values : [ '54.183.142.127' ]
@@ -293,7 +293,7 @@ router.post('/:username/createNewApp',function(req, res){
 		var new_application = {
 				appName :appName,
 				appLocation:"/userApps/" + userId + "/" + appName,
-				appDomain:domain_name+".utsavpopli.me",
+				appDomain:domain_name+".ruchandani.me",
 				appPort :docs.defaultPort+1,
 				appPID:1111,
 				status:"stopped"
@@ -381,7 +381,7 @@ router.post('/gitFork', function(req, res) {
 	// Arguments needs to be changed according to AWS dns settings
 	var args = {
 		zoneId : "Z2WHLIJ6XNK5AG",
-		name : domain_name + '.utsavpopli.me',
+		name : domain_name + '.ruchandani.me',
 		type : "A",
 		ttl : 700,
 		values : [ '54.183.142.127' ]
@@ -392,7 +392,7 @@ router.post('/gitFork', function(req, res) {
 
 	// /Write Domain and Port to JSON file
 //	var trialPort = 3011
-//	var trialMapping = ',' + '\"' + domain_name + '.utsavpopli.me' + '\"' + ":"
+//	var trialMapping = ',' + '\"' + domain_name + '.ruchandani.me' + '\"' + ":"
 //			+ '\"' + trialPort + '\"' + "}"
 //	readWriteFile.writeMapping(trialMapping);
 	// //
@@ -404,7 +404,7 @@ router.post('/gitFork', function(req, res) {
 		var new_application = {
 	appName :appName,
 				appLocation:"/userApps/" + userId + "/" + appName,
-				appDomain:domain_name+".utsavpopli.me",
+				appDomain:domain_name+".ruchandani.me",
 				appPort :docs.defaultPort+1,
 				appPID:1111,
 				status:"running"
@@ -413,7 +413,7 @@ router.post('/gitFork', function(req, res) {
 	        if(err){
 	                console.log(err);
 	        }else{
-	        	var trialMapping = ',' + '\"' + domain_name + '.utsavpopli.me' + '\"' + ":"
+	        	var trialMapping = ',' + '\"' + domain_name + '.ruchandani.me' + '\"' + ":"
 				+ '\"' + new_port + '\"' + "}"
 		readWriteFile.writeMapping(trialMapping);
 	                console.log("Successfully added");
@@ -491,7 +491,7 @@ router.post('/listFilesAndDirectories/:appName', function(req, res) {
 	// list sub directories
 	var appPath = req.body.appName;
 	var userName = req.session.username;
-	var currentPath = "/home/utsav/userApps/"+req.session.username+ "/"+req.param('appName');
+	var currentPath = "/home/sagar/userApps/"+req.session.username+ "/"+req.param('appName');
 	var result = [];
 	var i =0, j = 0;
 	//console.log("appLocation " + appLocation);
@@ -567,7 +567,7 @@ router.get('/:username/deleteApp/:appName', function(req, res) {
     				createNewAppError = stderr;
     				responseLog = "stdout: " + stdout + "stderr : " + stderr;
     				
-    				var trialDelete =","+ '\"'+ req.param('appName') + '.utsavpopli.me\"' + ":" + '\"'+port+'\"';
+    				var trialDelete =","+ '\"'+ req.param('appName') + '.ruchandani.me\"' + ":" + '\"'+port+'\"';
             		readWriteFile.deleteMapping(trialDelete);
             		users.find({username:req.session.username},function(err,docs){
             			var apps=docs;
@@ -781,7 +781,7 @@ router.get('/readFromFile/:fileDest?', function(req, res){
 	var filePath = req.param('fileDest');
 	//var file2 = req.body.fileDest;
 	console.log("Link hit " + filePath );
-var content = fs.readFileSync("/home/utsav/userApps/sagar2/app1/app2file2");
+var content = fs.readFileSync("/home/sagar/userApps/sagar2/app1/app2file2");
 });
 
 router.get('/logout', function(req, res){
